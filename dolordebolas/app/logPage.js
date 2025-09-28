@@ -54,6 +54,7 @@ export default function logPage() {
                 {codigo === 400 && <Text style={{ color: 'red', marginTop: 10 }}>{respuesta}</Text> }
 
                 <TextInput 
+                
                     placeholder='Usuario' 
                     style={styles.inputs}
                     value={usuario}
