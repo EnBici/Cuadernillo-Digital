@@ -16,7 +16,7 @@ export default function logPage() {
     const enviarLogin = async () => {
         try {
             const response = await axios.post(
-                'https://7b72f420bb1a.ngrok-free.app/login',JSON.stringify(
+                'https://0b735ead8d66.ngrok-free.app/login',JSON.stringify(
                 {
                     user: usuario,
                     pass: contrasena,
@@ -83,6 +83,12 @@ export default function logPage() {
                <Pressable onPress={() => router.replace('/registerPage')}>
                     <Text style={styles.registrate}>
                         No tienes cuenta? Registrate
+                    </Text>
+                </Pressable>
+
+                <Pressable onPress={() => {setAutenticado(true);router.replace('/pag2');}}>
+                    <Text style={styles.registrate}>
+                        Saltar inicio de session (quitar en un futuro)
                     </Text>
                 </Pressable>
             

@@ -1,6 +1,8 @@
 import {View,Text, StyleSheet, TextInput, Pressable, Image} from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
+import axios from 'axios';
+import { useAuth } from '../src/AuthContext';
 
 export default function registerPage() {
     const [usuario, setUsuario] = useState('');
@@ -8,19 +10,50 @@ export default function registerPage() {
     const [confirmarContrasena, setConfirmarContrasena] = useState('');
     const [email, setEmail] = useState('');
     const [nombre, setNombre] = useState('');
+    const [respuesta, setRespuesta] = useState('');
+    const [codigo, setCodigo] = useState(null);
+    const {setAutenticado} = useAuth();
 
     const router = useRouter();
+
+    const enviarRegister = async () => {
+        try {
+            const response = await axios.post(
+                'https://0b735ead8d66.ngrok-free.app/register',JSON.stringify(
+                {
+                    user: usuario,
+                    pass: contrasena,
+                    mail: email,
+                    name: nombre,
+                })
+            );
+            console.log(response.status);
+            setRespuesta(JSON.stringify(response.data));
+            setCodigo(response.status);
+
+            
+            if (response.status === 200) {
+                setAutenticado(true);
+                router.replace('/pag2');
+            }
+        } catch (error) {
+            setRespuesta("El usuario ya existe o hay un error en los datos");
+            setCodigo(400);
+            
+        }
+    }
+
 
     return (
         <View style={styles.container}>
             <Pressable style={styles.volve} onPress={() => router.replace('/logPage')}>
-                <Text>volve</Text>
+                <Text>Volver</Text>
             </Pressable>
 
            
             <View style={styles.logoContainer}>
                 <Image
-                    source={require('../assets/cet1Logo.png')} 
+                    source={require('../assets/Logo.png')} 
                     style={styles.logo}
                     resizeMode="contain"
                 />
@@ -62,7 +95,7 @@ export default function registerPage() {
                 />
 
                 
-                <Pressable>
+                <Pressable onPress={enviarRegister} >
 
                     <Text style={styles.aceta}>aceta</Text>
                 </Pressable>
@@ -91,15 +124,15 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         position: 'absolute',
-        height: 150,
+        height: 100,
         width: '100%',
         alignItems: 'center',
-        marginTop: 150,
+        marginTop: 100,
         marginBottom: 0,
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 250,
+        height: 250,
     },
     inputsContainer: {
         flex: 1,
