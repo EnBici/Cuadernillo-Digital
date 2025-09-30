@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, ImageBackground, Pressable, Button } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ImageBackground, Pressable, BlurView } from 'react-native';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
@@ -44,11 +44,15 @@ export default function logPage() {
         <ImageBackground
             source={require('../assets/cet1Logo.png')}
             //source={{ uri: 'https://picsum.photos/600/800' }}
+            
             style={styles.container}
             resizeMode="cover"
             
         >
             <View style={styles.fondoLogin}>
+              
+            
+        
                 <Text style={styles.texto}>Inicio de sesion</Text>
 
                 {codigo === 400 && <Text style={{ color: 'red', marginTop: 10 }}>{respuesta}</Text> }
@@ -76,12 +80,12 @@ export default function logPage() {
                     </View>
                </Pressable>
 
-               <Pressable onPress={() => router.push('/registerPage')}>
+               <Pressable onPress={() => router.replace('/registerPage')}>
                     <Text style={styles.registrate}>
                         No tienes cuenta? Registrate
                     </Text>
                 </Pressable>
-
+            
             </View>
         </ImageBackground>
     )
@@ -117,9 +121,11 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 10,
     },
+
+    
     boton: {
         marginTop: 15,
-        backgroundColor: '#2a3662',
+        backgroundColor: '#013345',
         borderRadius: 8,
         paddingHorizontal: 20,
         paddingVertical: 10,

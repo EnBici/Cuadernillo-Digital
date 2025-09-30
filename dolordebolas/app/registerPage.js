@@ -1,26 +1,129 @@
-import {View,Text, StyleSheet, ImageBackground, TextInput, Pressable} from 'react-native';
+import {View,Text, StyleSheet, TextInput, Pressable, Image} from 'react-native';
+import { useRouter } from 'expo-router';
+import { useState } from 'react';
 
 export default function registerPage() {
+    const [usuario, setUsuario] = useState('');
+    const [contrasena, setcontrasena] = useState('');
+    const [confirmarContrasena, setConfirmarContrasena] = useState('');
+    const [email, setEmail] = useState('');
+    const [nombre, setNombre] = useState('');
+
+    const router = useRouter();
+
     return (
-        
         <View style={styles.container}>
-            <Text>Holu soy el registro </Text>
+            <Pressable style={styles.volve} onPress={() => router.replace('/logPage')}>
+                <Text>volve</Text>
+            </Pressable>
 
+           
+            <View style={styles.logoContainer}>
+                <Image
+                    source={require('../assets/cet1Logo.png')} 
+                    style={styles.logo}
+                    resizeMode="contain"
+                />
+            </View>
 
+          
+            <View style={styles.inputsContainer}>
+                <TextInput 
+                    placeholder='Usuario' 
+                    style={styles.wuajaja} 
+                    value={usuario}
+                    onChangeText={setUsuario}
+                />
+                <TextInput 
+                    placeholder='Nombre completo' 
+                    style={styles.wuajaja} 
+                    value={nombre} 
+                    onChangeText={setNombre}
+                />
+                <TextInput 
+                    placeholder='Email' 
+                    style={styles.wuajaja}
+                    value={email}
+                    onChangeText={setEmail}
+                />
+                <TextInput 
+                    placeholder='Contraseña' 
+                    style={styles.wuajaja} 
+                    value={contrasena}
+                    onChangeText={setcontrasena}
+                    secureTextEntry
+                />
+                <TextInput 
+                    placeholder='Repetir contraseña' 
+                    style={styles.wuajaja} 
+                    value={confirmarContrasena}
+                    onChangeText={setConfirmarContrasena}
+                    secureTextEntry
+                />
+
+                
+                <Pressable>
+
+                    <Text style={styles.aceta}>aceta</Text>
+                </Pressable>
+            </View>
         </View>
-    
-    
     )
-
-
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#282828",
         flex: 1,
-        justifyContent: 'center',
         width: '100%',
         alignItems: 'center',
-    }
-})
+        justifyContent: 'flex-start',
+    },
+    volve: {
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        zIndex: 10,
+    },
+    logoContainer: {
+        position: 'absolute',
+        height: 150,
+        width: '100%',
+        alignItems: 'center',
+        marginTop: 150,
+        marginBottom: 0,
+    },
+    logo: {
+        width: 100,
+        height: 100,
+    },
+    inputsContainer: {
+        flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    wuajaja: {
+        marginTop: 20,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        width: 250,
+        alignContent: 'center',
+    },
+
+    aceta: {
+        marginTop: 20,
+        width: 80,
+        textAlign: 'center',
+        padding: 10,
+        borderRadius: 8,
+        marginTop: 15,
+        backgroundColor: '#fff',
+    },
+});
